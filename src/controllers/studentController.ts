@@ -1,13 +1,25 @@
 import { Request, Response } from 'express'
-
-import { StudentRepository } from '../repositories'
 import { StudentEntity } from '../entities'
+import { CreateStudentUseCase, DeleteStudentUseCase, GetStudentsListUseCase, GetStudentUseCase, UpdateStudentUseCase } from '../useCases'
 
 export class StudentController {
 
+    private readonly createStudentUseCase: CreateStudentUseCase;
+    private readonly deleteStudentUseCase: DeleteStudentUseCase;
+    private readonly updateStudentUseCase: UpdateStudentUseCase;
+    private readonly getStudentUseCase: GetStudentUseCase;
+    private readonly getStudentsListUseCase: GetStudentsListUseCase;
+
     constructor(
-        private readonly studentRepository: StudentRepository
-    ){}
+        // private readonly studentRepository: StudentRepository
+        
+    ){
+        this.createStudentUseCase= new CreateStudentUseCase();
+        this.deleteStudentUseCase= new DeleteStudentUseCase();
+        this.updateStudentUseCase= new UpdateStudentUseCase();
+        this.getStudentUseCase= new GetStudentUseCase();
+        this.getStudentsListUseCase= new GetStudentsListUseCase();
+    }
 
     createStudent = (req: Request, res: Response) => {
         const student = new StudentEntity(
@@ -19,21 +31,21 @@ export class StudentController {
             req.body.phone,
             req.body.age,
         )
-        this.studentRepository.create(student)
+        this.createStudentUseCase.createStudent(student)
             .then(student => res.json(student))
             .catch(err => res.status(400).json(err));
     }
 
     getStudentList = (req: Request, res: Response) => {
         
-        this.studentRepository.getAll()
+        this.getStudentsListUseCase.getStudentsList()
             .then(students => res.json(students))
             .catch(err => res.status(400).json(err));
     }
     getStudent = (req: Request, res: Response) => {
         const {id} = req.params;
         const studentId = parseInt(id);
-        this.studentRepository.getById(studentId)
+        this.getStudentUseCase.getStudent(studentId)
             .then(students => res.json(students))
             .catch(err => res.status(400).json(err));
     }
@@ -49,14 +61,14 @@ export class StudentController {
             req.body.phone,
             req.body.age,
         )
-        this.studentRepository.update(studentId, student)
+        this.updateStudentUseCase.updateStudent(studentId, student)
             .then(student => res.json(student))
             .catch(err => res.status(400).json(err));
     }
     deleteStudent = (req: Request, res: Response) => {
         const {id} = req.params;
         const studentId = parseInt(id);
-        this.studentRepository.delete(studentId)
+        this.deleteStudentUseCase.deleteStudent(studentId)
             .then(student => res.json({deleted:student}))
             .catch(err => res.status(400).json(err));
     }

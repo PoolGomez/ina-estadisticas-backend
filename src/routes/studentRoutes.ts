@@ -1,12 +1,10 @@
 import {Router} from "express"
 import {StudentController} from '../controllers'
-import { StudentRepository } from "../repositories";
 
 export class StudentRoutes{
     static get routes(): Router{
         const router = Router();
-        const repo = new StudentRepository();
-        const controller = new StudentController(repo);
+        const controller = new StudentController();
 
         router.post('/', controller.createStudent);
         router.get('/', controller.getStudentList);

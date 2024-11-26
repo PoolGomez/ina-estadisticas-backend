@@ -3,7 +3,6 @@ import { StudentEntity } from "../entities";
 
 export class StudentRepository  {
 
-    // Promise<StudentEntity | null>
     public create =  async(student : StudentEntity):Promise<StudentEntity | null>  => {
         return new Promise<StudentEntity | null>((resolve, reject) => {
             postgresDB.connect((err)=>{
