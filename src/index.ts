@@ -1,5 +1,5 @@
 
-import postgresDB from "./adapters/postgresqlAdapter"
+import postgresDB from "./adapters/databaseAdapter"
 import { envs } from "./config"
 import { AppRoutes, Server } from "./presentation"
 

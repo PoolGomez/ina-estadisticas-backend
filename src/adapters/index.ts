@@ -1,1 +1,2 @@
-export { default as postgresql } from './postgresqlAdapter';
+export { default as databaseAdapter } from './databaseAdapter';
+export * from './firebaseAdapter';

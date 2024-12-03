@@ -1,8 +1,10 @@
 import { envs } from "../config";
 
+
+
 import { Pool } from 'pg';
 
-const postgresDB = new Pool({
+export const postgresDB = new Pool({
     
     host: envs.POSTGRES_HOST,   // Cambia si tu base de datos está en otro host
     database: envs.POSTGRES_DATABASE, // Reemplaza con el nombre de tu base de datos
@@ -12,3 +14,6 @@ const postgresDB = new Pool({
 });
 
 export default postgresDB;
+
+
+ 

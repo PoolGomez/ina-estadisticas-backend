@@ -1,5 +1,5 @@
-import { StudentEntity } from "../entities";
-import { StudentRepository } from "../repositories";
+import { StudentEntity } from "../../entities";
+import { StudentRepository } from "../../repositories";
 
 // export const createStudentUseCase = async (student: StudentEntity): Promise<StudentEntity | null> => {
 //     const studentRepository = new StudentRepository();

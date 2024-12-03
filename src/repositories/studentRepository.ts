@@ -1,4 +1,5 @@
-import postgresDB from "../adapters/postgresqlAdapter";
+import {postgresDB} from "../adapters/databaseAdapter";
+// import { postgresDB } from "../adapters";
 import { StudentEntity } from "../entities";
 
 export class StudentRepository  {

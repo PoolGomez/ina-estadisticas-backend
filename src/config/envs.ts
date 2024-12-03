@@ -10,4 +10,9 @@ export const envs = {
     POSTGRES_PASSWORD: get('POSTGRES_PASSWORD').asString(),
     POSTGRES_PORT: get('POSTGRES_PORT').asPortNumber(),
     SERVER_PORT: get('SERVER_PORT').default('3100').asPortNumber(),
+    GOOGLE_APLICATION_CREDENTIALS: get('GOOGLE_APLICATION_CREDENTIALS').asString(),
+    JWT_SECRET_KEY: get('JWT_SECRET_KEY').asString(),
+    ACCESS_TOKEN_SECRET: get('ACCESS_TOKEN_SECRET').asString(),
+    REFRESH_TOKEN_SECRET: get('REFRESH_TOKEN_SECRET').asString(),
+    MODO: get('MODO').asString(),
 }
