@@ -1,11 +1,11 @@
 {
   "name": "ina-estadisticas-backend",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
     "dev": "tsnd --respawn --clear src/index.ts",
-    "build": "rimraf ./dist && tsx",
-    "start": "npm run build && node dist/index.ts",
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -20,7 +20,6 @@
     "@types/pg": "^8.11.10",
     "rimraf": "^6.0.1",
     "ts-node-dev": "^2.0.0",
-    "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   },
   "dependencies": {
