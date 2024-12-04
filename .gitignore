@@ -1,3 +1,4 @@
 .env
 credenciales
+dist
 node_modules
