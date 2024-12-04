@@ -42,8 +42,28 @@ export class ServiceRepository {
         })
     }
 
-    public create = async (service : ServiceEntity) : Promise<string> => {
-        return new Promise<string>(async (resolve, reject) => {
+    public getByBoleta = async (boleta: string): Promise<ServiceEntity[]>=>{
+        return new Promise<ServiceEntity[]>(async (resolve, reject) => {
+            try {
+                const document = await db.collection(serviceCollection).where('boleta','==',boleta).get();
+                const docs = document.docs.map( item => ({
+                    id: item.id,
+                    ...item.data()
+                }))
+                console.log("[document]",docs)
+                // if(document.size>0){
+                //     resolve(true);
+                // }
+                resolve(docs as ServiceEntity[]);
+
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+
+    public create = async (service : ServiceEntity) : Promise<ServiceEntity> => {
+        return new Promise<ServiceEntity>(async (resolve, reject) => {
             try {
                 const newService = {
                     boleta: service.boleta,
@@ -58,29 +78,11 @@ export class ServiceRepository {
                     ofrenda: service.ofrenda,
                     observacion: service.observacion,
                 }
-                
                 const result = await db.collection(serviceCollection).add(newService);
-                resolve(result.id);
-
-            } catch (error) {
-
-                reject(error)
-
-            }
-        })
-    }
-
-    public delete = async (serviceId: string): Promise<boolean> => {
-        return new Promise<boolean>(async (resolve, reject) => {
-            try {
-                const docRef = db.collection(serviceCollection).doc(serviceId);
-                const docSnapshot = await docRef.get()
-                if(!docSnapshot.exists){
-                    resolve(false)
-                    return
-                }
-                await docRef.delete();                
-                resolve(true)
+                resolve({
+                    ...newService,
+                    id: result.id,
+                });
             } catch (error) {
                 reject(error)
             }
@@ -107,6 +109,23 @@ export class ServiceRepository {
                     .doc(serviceId)
                     .update(newService);
                 resolve(updateService)
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+
+    public delete = async (serviceId: string): Promise<boolean> => {
+        return new Promise<boolean>(async (resolve, reject) => {
+            try {
+                const docRef = db.collection(serviceCollection).doc(serviceId);
+                const docSnapshot = await docRef.get()
+                if(!docSnapshot.exists){
+                    resolve(false)
+                    return
+                }
+                await docRef.delete();                
+                resolve(true)
             } catch (error) {
                 reject(error)
             }

@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { CreateServiceUseCase, DeleteServiceUseCase, GetServicesListUseCase, GetServiceUseCase, UpdateServiceUseCase } from "../useCases";
 import { ServiceEntity } from "../entities";
+import { GetServiceByBoletaUseCase } from "../useCases/serviceUseCase/getServiceByBoletaUseCase";
+import { GetCheckBoletaUpdateUseCase } from "../useCases/serviceUseCase/getCheckBoletaUpdateUseCase";
 
 
 export class ServiceController {
@@ -10,6 +12,8 @@ export class ServiceController {
     private readonly createServiceUseCase : CreateServiceUseCase;
     private readonly updateServiceUseCase: UpdateServiceUseCase;
     private readonly deleteServiceUseCase: DeleteServiceUseCase;
+    private readonly getServiceByBoleta : GetServiceByBoletaUseCase;
+    private readonly getCheckBoletaUpdateUseCase : GetCheckBoletaUpdateUseCase;
 
     constructor(){
         this.getServicesListUseCase = new GetServicesListUseCase();
@@ -17,6 +21,8 @@ export class ServiceController {
         this.createServiceUseCase = new CreateServiceUseCase();
         this.updateServiceUseCase = new UpdateServiceUseCase();
         this.deleteServiceUseCase = new DeleteServiceUseCase();
+        this.getServiceByBoleta = new GetServiceByBoletaUseCase();
+        this.getCheckBoletaUpdateUseCase = new GetCheckBoletaUpdateUseCase();
     }
 
     getServicesList = async (req: Request, res: Response, next: NextFunction) => {
@@ -76,8 +82,25 @@ export class ServiceController {
                 req.body.ofrenda,
                 req.body.observacion
             )
-            const result = await this.createServiceUseCase.createService(service)
-            res.status(200).json(result)
+            const verification = await this.getServiceByBoleta.getServiceByBoleta(service.boleta);
+            console.log("[verification]",verification)
+            if(verification){
+                res.status(200).json({
+                    code: 'warning',
+                    message: "El número de boleta ya existe",
+                    data: null,
+                    dataArray: null,
+                })
+                // throw new Error('El número de boleta debe ser único')
+            }else{
+                const result = await this.createServiceUseCase.createService(service)
+                res.status(200).json({
+                    code:"success",
+                    message: "Registro correcto",
+                    data: result,
+                    dataArray: null
+                })
+            }
         } catch (error) {
             next(error)
         }
@@ -99,8 +122,25 @@ export class ServiceController {
                 req.body.ofrenda,
                 req.body.observacion                
             )
-            const result = await this.updateServiceUseCase.updateService(id, service)
-            res.status(200).json(result)
+            const verification =  await this.getCheckBoletaUpdateUseCase.getCheckBoletaUpdate(id, service.boleta);
+            if(!verification){
+                res.status(200).json({
+                    code: 'warning',
+                    message: "El número de boleta ya existe en otro servicio",
+                    data: null,
+                    dataArray: null,
+                })
+            }else{
+                const result = await this.updateServiceUseCase.updateService(id, service)
+                res.status(200).json({
+                    code:"success",
+                    message: "Registro actualizado",
+                    data: result,
+                    dataArray: null
+                })
+            }
+
+            
         } catch (error) {
             next(error)
         }

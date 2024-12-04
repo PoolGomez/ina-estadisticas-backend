@@ -7,7 +7,7 @@ import { ServiceRepository } from "../../repositories";
 // }
 export class CreateServiceUseCase{
     
-    async createService(service: ServiceEntity):Promise<string> {
+    async createService(service: ServiceEntity):Promise<ServiceEntity> {
         try {
             const serviceRepository = new ServiceRepository();
             const result = await serviceRepository.create(service);

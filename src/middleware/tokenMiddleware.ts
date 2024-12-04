@@ -14,7 +14,7 @@ export const tokenMiddleware = async (req: IGetUserAuthInfoRequest, res: Respons
         
         // token = token.split(" ")[1]
         const payload = jwt.verify(accessToken, envs.ACCESS_TOKEN_SECRET!);
-        console.log('[payload]', payload)
+        // console.log('[payload]', payload)
         req.user = payload as InfoTokenEntity;
 
         next()

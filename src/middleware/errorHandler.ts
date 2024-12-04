@@ -6,6 +6,7 @@ export const errorHandler=(error: any, req: Request, res: Response, next: NextFu
     res.status(error.status  || 500
 
     ).json({
+        code: 'error',
         message: error.message 
         || 'Error interno del servidor'
     })
