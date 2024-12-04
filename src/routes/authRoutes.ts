@@ -37,11 +37,11 @@ export class AuthRoutes{
                 });
 
                 res.cookie('access_token', resultToken?.token, {
-                    // domain:'localhost:5173',
+                    domain:'http://localhost:5173',
 
                     path: '/',
                     httpOnly: true, // la cookie solo se puede acceder en el servidor
-                    secure: false, //process.env.NODE_ENV === 'production', // la cookie solo se puede acceder en https
+                    //secure: false, //process.env.NODE_ENV === 'production', // la cookie solo se puede acceder en https
                     // sameSite: 'none',// sameSite: 'strict', //la cookie solo se puede acceder en el mismo dominio
                 })
 
