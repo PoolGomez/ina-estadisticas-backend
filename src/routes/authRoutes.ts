@@ -37,7 +37,7 @@ export class AuthRoutes{
                 });
 
                 res.cookie('access_token', resultToken?.token, {
-                    domain:'localhost:5173',
+                    // domain:'localhost:5173',
 
                     path: '/',
                     httpOnly: true, // la cookie solo se puede acceder en el servidor
