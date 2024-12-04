@@ -42,7 +42,8 @@ export class AuthRoutes{
                     path: '/',
                     httpOnly: true, // la cookie solo se puede acceder en el servidor
                     secure: true, //process.env.NODE_ENV === 'production', // la cookie solo se puede acceder en https
-                    // sameSite: 'none',// sameSite: 'strict', //la cookie solo se puede acceder en el mismo dominio
+                    // sameSite: 'none',// 
+                    sameSite: 'strict', //la cookie solo se puede acceder en el mismo dominio
                 })
 
                 
