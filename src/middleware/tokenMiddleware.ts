@@ -9,6 +9,7 @@ interface IGetUserAuthInfoRequest extends Request {
 export const tokenMiddleware = async (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction) => {
     
     try {
+        console.log("[req.cookies.access_token]: ", req.cookies.access_token)
         const accessToken = req.cookies.access_token;
         if(!accessToken) throw new Error("No existe el token")
         
