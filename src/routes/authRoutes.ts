@@ -15,9 +15,8 @@ export class AuthRoutes{
         router.post('/login', async (req: Request, res: Response) => {
             const authorization = req.headers.authorization;
             const token = authorization?.split(' ')[1] ?? ''
-            // const token='eyJhbGciOiJSUzI1NiIsImtpZCI6IjkyODg2OGRjNDRlYTZhOThjODhiMzkzZDM2NDQ1MTM2NWViYjMwZDgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYXBwLWFkbWluZy1wZy0yIiwiYXVkIjoiYXBwLWFkbWluZy1wZy0yIiwiYXV0aF90aW1lIjoxNzMyODI4NjgzLCJ1c2VyX2lkIjoiU1hudFdCT3BrSFZDd0RJN3NFODQ0M3BCeTRpMiIsInN1YiI6IlNYbnRXQk9wa0hWQ3dESTdzRTg0NDNwQnk0aTIiLCJpYXQiOjE3MzI4Mjg2ODMsImV4cCI6MTczMjgzMjI4MywiZW1haWwiOiJwZ29tZXo0NzkwQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJwZ29tZXo0NzkwQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.NtgT2AodKUeKJ5vwmbcva4zpK7VXOoKkLutVOU0mgivffzsqlfcBRM2rYod30hALT9PEymoqEFRMZ4I04AWwcqdf8Xcs7KO_M-Bdtgp6DrZGjVP3VtQr-bFE4HDnsgPj9DPTqxPqxLwj3-kRZQxIitUF4TEnWQsHuEr8HDbOMijcJSps2sDfSPdGNFveCWXoJ47cDyAdOLVA9gk542p6nS6pgVcYJDrG5HgehrWsEJib1GMmMtWnyMpcqyCWXcR5z-snITP_43ry_fGMB5S6bTyrKVj44YDPjCFbZDor7PAvxDsCt3nNXh-xPT_FiFiB7n7QVGiCcNo-oTq4q5q6xA'
             try {
-                console.log("token:",token);
+                // console.log("token:",token);
                 //autenticacion del usuario
                 const decodedToken  = await authentication.verifyIdToken(token);
                 const uid = decodedToken.uid;
