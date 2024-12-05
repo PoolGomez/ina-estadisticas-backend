@@ -7,11 +7,23 @@ interface Options{
     port?: number;
     routes: Router;
 }
-const cortsOptions = {
-    origin:"http://localhost:5173",
-    // methods:["GET","POST","PUT","DELETE"],
-    // allowedHeaders:["Content-Type","Authorization"],
-    credentials: true,
+// const cortsOptions = {
+//     origin:"http://localhost:5173",
+//     // methods:["GET","POST","PUT","DELETE"],
+//     // allowedHeaders:["Content-Type","Authorization"],
+//     credentials: true,
+// }
+
+var whitelist = ['http://localhost:5173','https://ina-estadisticas-app.vercel.app']
+var corsOptions = {
+  origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void ) {
+    if (whitelist.indexOf(origin as string) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+//   credentials: true
 }
 
 export class Server{
@@ -25,10 +37,13 @@ export class Server{
         this.routes = routes;
     }
     async start(){
-        this.app.use(cors({
-            origin: ['http://localhost:5173','https://ina-estadisticas-app.vercel.app'], // Especifica el dominio permitido
-            credentials: true // Permite el uso de cookies
-            }))
+        this.app.use(cors(
+            corsOptions
+            // {
+            // origin: ['http://localhost:5173','https://ina-estadisticas-app.vercel.app'], // Especifica el dominio permitido
+            // credentials: true // Permite el uso de cookies
+            // }
+        ))
         // this.app.use(cors())
         this.app.use(express.json())
         this.app.use(express.urlencoded({ extended: true}));
