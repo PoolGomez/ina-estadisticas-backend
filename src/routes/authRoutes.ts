@@ -1,10 +1,13 @@
 import {Request, Response, Router} from "express"
 import { authentication, db } from "../adapters";
 import { generateToken } from "../utils/tokenManager";
+import { UserController } from "../controllers";
 
 export class AuthRoutes{
     static get routes(): Router{
         const router = Router();
+
+        const controller = new UserController();
 
         router.post('/login', async (req: Request, res: Response) => {
             const authorization = req.headers.authorization;
@@ -67,6 +70,8 @@ export class AuthRoutes{
             }
             
         })
+
+        router.post('/register', controller.createUser);
         // router.get('/:id', controller.getService);
         // router.put('/:id', controller.updateService);
         // router.delete('/:id', controller.deleteService);

@@ -4,9 +4,6 @@ import { tokenMiddleware } from "../middleware/tokenMiddleware";
 import { verifyAdmin } from "../middleware/verifyAdmin";
 import { ServiceController } from "../controllers";
 
-
-// import {StudentController} from '../controllers'
-
 export class ServiceRoutes{
     static get routes(): Router{
         const router = Router();

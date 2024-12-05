@@ -26,7 +26,7 @@ export class Server{
     }
     async start(){
         this.app.use(cors({
-            origin: 'http://localhost:5173', // Especifica el dominio permitido
+            origin: ['http://localhost:5173','https://ina-estadisticas-app.vercel.app'], // Especifica el dominio permitido
             credentials: true // Permite el uso de cookies
             }))
         // this.app.use(cors())

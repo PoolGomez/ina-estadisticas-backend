@@ -59,4 +59,23 @@ export class UserRepository{
         })
     }
 
+    public create = async (user: UserEntity) : Promise<UserEntity> => {
+        return new Promise<UserEntity>(async(resolve, reject) => {
+            try {
+                const newUser = {
+                    name: user.name,
+                    email: user.email,
+                    rol: user.rol,
+                }
+                const result = await db.collection(userCollection).add(newUser);
+                resolve({
+                    ...newUser,
+                    id: result.id
+                })
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+
 }
