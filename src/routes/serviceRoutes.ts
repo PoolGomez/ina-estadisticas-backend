@@ -1,7 +1,8 @@
 import {Router} from "express"
-import { ServiceController } from "../controllers/serviceController";
+
 import { tokenMiddleware } from "../middleware/tokenMiddleware";
 import { verifyAdmin } from "../middleware/verifyAdmin";
+import { ServiceController } from "../controllers";
 
 
 // import {StudentController} from '../controllers'

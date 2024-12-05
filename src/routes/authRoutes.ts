@@ -1,17 +1,11 @@
 import {Request, Response, Router} from "express"
-// import { ServiceController } from "../controllers/serviceController";
 import { authentication, db } from "../adapters";
-import jwt from 'jsonwebtoken';
-import { envs } from "../config";
-import { generateToken, gerenateRefreshToken } from "../utils/tokenManager";
-// import {StudentController} from '../controllers'
+import { generateToken } from "../utils/tokenManager";
 
 export class AuthRoutes{
     static get routes(): Router{
         const router = Router();
-        // const controller = new ServiceController();
 
-        // router.post('/', controller.createService);
         router.post('/login', async (req: Request, res: Response) => {
             const authorization = req.headers.authorization;
             const token = authorization?.split(' ')[1] ?? ''
@@ -37,8 +31,6 @@ export class AuthRoutes{
                 });
 
                 res.cookie('access_token', resultToken?.token, {
-                    // domain:'localhost:5173',
-
                     path: '/',
                     httpOnly: true, // la cookie solo se puede acceder en el servidor
                     secure: true, //process.env.NODE_ENV === 'production', // la cookie solo se puede acceder en https
@@ -65,6 +57,16 @@ export class AuthRoutes{
                 res.status(401).json({message: 'Error de autenticacion'})
             }
         } );
+
+        router.post('/logout',async (req: Request, res: Response) => {
+            try {
+                res.clearCookie('access_token');
+                res.status(200).json({message: "Sesión cerrada"})    
+            } catch (error) {
+                res.status(400).json({message: 'Error al cerrar la sesión'})
+            }
+            
+        })
         // router.get('/:id', controller.getService);
         // router.put('/:id', controller.updateService);
         // router.delete('/:id', controller.deleteService);

@@ -9,8 +9,8 @@ export const verifyAdmin = async (req: IGetUserAuthInfoRequest, res: Response, n
     
     try {
         const usuario = req.user;
-        console.log('[usuario.exp]',usuario?.exp)
-        console.log('[Rol]',usuario?.rol)
+        // console.log('[usuario.exp]',usuario?.exp)
+        // console.log('[Rol]',usuario?.rol)
         if(usuario?.rol !== 'admin') throw new Error("No tiene permisos")
         
         // token = token.split(" ")[1]
