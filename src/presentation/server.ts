@@ -16,14 +16,21 @@ interface Options{
 
 var whitelist = ['http://localhost:5173','https://ina-estadisticas-app.vercel.app']
 var corsOptions = {
-  origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void ) {
-    if (whitelist.indexOf(origin as string) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
-//   credentials: true
+    origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+        if (whitelist.includes(origin as string)) {
+            callback(null, true); // Permitir el origen
+        } else {
+            callback(new Error('No autorizado por CORS')); // Denegar el origen
+        }
+    },
+//   origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void ) {
+//     if (whitelist.indexOf(origin as string) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   },
+  credentials: true
 }
 
 export class Server{
