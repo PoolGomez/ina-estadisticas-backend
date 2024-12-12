@@ -21,7 +21,9 @@ export const tokenMiddleware = async (req: IGetUserAuthInfoRequest, res: Respons
         next()
     } catch (error: any) {
         console.log(error)
-        res.status(401).json({error: error.message})
+        res.status(401).json({
+            code: "error",
+            message: error.message})
     }
     
     

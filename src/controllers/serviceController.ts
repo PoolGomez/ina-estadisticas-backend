@@ -36,7 +36,12 @@ export class ServiceController {
 
 
             const result = await this.getServicesListUseCase.getServicesList();
-            res.status(200).json(result)
+            
+            res.status(200).json({
+                code: "success",
+                message: "Servicios cargados correctamente",
+                data: result
+            })
             // throw {
             //     status: 400,
             //     message:'Error de prueba'
@@ -55,7 +60,12 @@ export class ServiceController {
             const {id} = req.params;
             const serviceId = id;
             const result = await this.getServiceUseCase.getService(serviceId);
-            res.status(200).json(result)
+            res.status(200).json({
+                code: "success",
+                message: "Servicio encontrado correctamente",
+                data: result
+            })
+            // res.status(200).json(result)
                     
         } catch (error) {
             next(error);

@@ -16,7 +16,12 @@ export class UserController {
     getUserList = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const result = await this.getUsersListUseCase.getUsersList();
-            res.status(200).json(result)
+            res.status(200).json({
+                code: "success",
+                message: "Usuarios cargados correctamente",
+                data: result
+            })
+            // res.status(200).json(result)
         } catch (error) {
             next(error)
         }

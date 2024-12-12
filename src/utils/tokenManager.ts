@@ -7,7 +7,7 @@ import { Response } from 'express';
 export const generateToken = (user:{}) => {
     
     try {
-        const expire = 60 * 60 * 24;
+        const expire = 60 * 60 * 24 * 7; //1 semana
         // const expire = 60 * 15; //15min
         // const expire = 10 ; //10 seg
 

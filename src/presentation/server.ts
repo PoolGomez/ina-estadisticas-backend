@@ -14,8 +14,8 @@ interface Options{
 //     credentials: true,
 // }
 
-var whitelist = ['http://localhost:5173','https://ina-estadisticas-app.vercel.app']
-var corsOptions = {
+const whitelist = ['http://localhost:5173','https://ina-estadisticas-app.vercel.app']
+const corsOptions = {
     origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
         if (whitelist.includes(origin as string)) {
             callback(null, true); // Permitir el origen
