@@ -67,11 +67,13 @@ export class UserRepository{
                     email: user.email,
                     rol: user.rol,
                 }
-                const result = await db.collection(userCollection).add(newUser);
-                resolve({
+                const result = await db.collection(userCollection).doc(user.id).set(newUser);
+                resolve( 
+                    {
                     ...newUser,
-                    id: result.id
-                })
+                    id: user.id
+                    }
+                )
             } catch (error) {
                 reject(error)
             }
